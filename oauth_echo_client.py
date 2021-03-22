@@ -1,4 +1,4 @@
-from oauth import oauth
+import oauth2
 import requests
 import json
 
@@ -8,17 +8,17 @@ class OAuthEchoClient(object):
 	def __init__(self, base_url=None, callback_url=None, oauth_realm=None, consumer_key=None, consumer_secret=None, access_key=None, access_secret=None, API_key=None):
 		self.base_url = base_url
 		self.callback_url = callback_url
-		self.oauth_realm = oauth_realm
-		self.consumer = oauth.OAuthConsumer(consumer_key, consumer_secret)
+		self.oauth_realm = realm
+		self.consumer = oauth2.Consumer(consumer_key, consumer_secret)
 		self.access_token = None
 		if access_key:
-			self.access_token = oauth.OAuthToken(access_key, access_secret)
-		self.signature_method = oauth.OAuthSignatureMethod_HMAC_SHA1()
+			self.access_token = oauth2.Token(access_key, access_secret)
+		self.signature_method = oauth2.SignatureMethod_HMAC_SHA1()
 		self.API_key = API_key
 		self.session = requests.session()
 
 	def post(self, url, data=None, **params):
-		oauth_request = oauth.OAuthRequest.from_consumer_and_token(
+		oauth_request = oauth2.Request.from_consumer_and_token(
 			self.consumer,
 			self.access_token,
 			http_url = self.callback_url

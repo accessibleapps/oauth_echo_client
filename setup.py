@@ -1,6 +1,6 @@
 from setuptools import setup
 
-__version__ = 0.1
+__version__ = 0.2
 __doc__ = """Simple base client for OAuth Echo services."""
 
 setup(
@@ -10,10 +10,10 @@ setup(
  py_modules = ['oauth_echo_client'],
  install_requires = [
   'requests',
-  'oauth',
+  'python-oauth2',
  ],
  classifiers = [
-  'Development Status :: 3 - Alpha',
+  'Development Status :: 4 - Beta',
   'Intended Audience :: Developers',
   'Programming Language :: Python',
   'Topic :: Software Development :: Libraries',
