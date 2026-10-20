@@ -2,7 +2,7 @@
 
 ## Goal
 
-Keep the public constructor/post API and repair two source-proved failures: the constructor references undefined `realm` instead of its `oauth_realm` argument; post calls `dict.iteritems()`. Smallest slice: two source substitutions, approximately 60 lines of local mocked regression tests, and this note.
+Keep the public constructor/post API and repair two source-proved failures: the constructor references undefined `realm` instead of its `oauth_realm` argument; post calls `dict.iteritems()`. Add a minimal hosted gate for the existing offline suite and package build under the subsequent all-open-PR authorization.
 
 ## State
 
@@ -24,4 +24,6 @@ The repository's last commit describes a Python 3 rewrite, but these two failure
 
 ## Next step
 
-Inspect and commit only oauth_echo_client.py, test_oauth_echo_client.py and this note, then send the concrete patch to the coordinator. Publication is pending the coordinator's review. No existing full-check authority or hosted CI exists in this repository, so focused regressions do not prove external OAuth/signing-service compatibility.
+CI amendment is isolated on repair/task6-oauth_echo_client-ci from published #1 head 4831f15e4e7b126e400c31eabc4432b3d9f8d0e3. Both original local and published tips are preserved at backup/task6-oauth_echo_client-ci-local and backup/task6-oauth_echo_client-ci-published; original worktree files are untouched. Default master has no tests (only module and setup.py), so the coordinator authorized CI directly on the existing feature suite rather than a zero-test prerequisite. Actions enabled=true was verified read-only. One Linux/Python 3.12 job runs the full two-test suite, using only the already-declared requests dependency; OAuth is mocked and requests.session/post are mocked. It builds the existing setup.py package and requires both artifacts. No source/dependency changes or service calls. Latest official action releases were resolved to pinned commits; Actions Dependabot maintains them.
+
+Local amendment validation on Python 3.12: full two-test suite passed (requests resolved to 2.34.2); uv build produced both exact package artifacts, with the pre-existing missing-README sdist warning. actionlint 1.7.12 passed; zizmor 1.31.1 offline reported no findings (one default suppression). Generated build/ and egg-info artifacts are untracked and not staged. Return the exact local head for coordinator review before any explicit-lease push to the original PR ref. Actual Claude review of the final augmented head and green hosted checks are required before merge. Mock tests do not prove live OAuth service compatibility.
