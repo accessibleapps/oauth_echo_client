@@ -8,7 +8,7 @@ class OAuthEchoClient(object):
 	def __init__(self, base_url=None, callback_url=None, oauth_realm=None, consumer_key=None, consumer_secret=None, access_key=None, access_secret=None, API_key=None):
 		self.base_url = base_url
 		self.callback_url = callback_url
-		self.oauth_realm = realm
+		self.oauth_realm = oauth_realm
 		self.consumer = oauth2.Consumer(consumer_key, consumer_secret)
 		self.access_token = None
 		if access_key:
@@ -25,7 +25,7 @@ class OAuthEchoClient(object):
 		)
 		oauth_request.sign_request(self.signature_method, self.consumer, self.access_token)
 		oauth_request.set_parameter('key', self.API_key)
-		for key, val in params.iteritems():
+		for key, val in params.items():
 			oauth_request.set_parameter(key, val)
 		oauth_headers = oauth_request.to_header(realm=self.oauth_realm)
 		headers = {}
